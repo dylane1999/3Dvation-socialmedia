@@ -20,6 +20,7 @@ const Root = styled.div`
   align-items: center;
   height: 80px;
   background-color: transparent;
+  z-index: 5;
 `;
 
 const StyledContainer = styled(Container)`

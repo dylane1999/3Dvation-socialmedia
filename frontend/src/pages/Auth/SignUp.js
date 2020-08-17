@@ -1,17 +1,33 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { withRouter } from 'react-router-dom';
-import { Mutation } from 'react-apollo';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { withRouter } from "react-router-dom";
+import { Mutation } from "react-apollo";
 
-import { Spacing, Container } from 'components/Layout';
-import { H1, Error } from 'components/Text';
-import { InputText, Button } from 'components/Form';
-import Head from 'components/Head';
+import { Spacing, Container } from "components/Layout";
+import { H1, Error } from "components/Text";
+import { InputText } from "components/Form";
+import Head from "components/Head";
 
-import { SIGN_UP } from 'graphql/user';
+import { SIGN_UP } from "graphql/user";
 
-import * as Routes from 'routes';
+import * as Routes from "routes";
+
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+
+const useStyles = makeStyles({
+  root: {
+    background: 'linear-gradient(to right, #085d84, #007699, #008fab, #00a8b9, #30c2c3);',
+    border: 0,
+    borderRadius: 3,
+    boxShadow: '0 3px 5px 2px rgba(8, 93, 132, .3)',
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+  },
+});
 
 const Root = styled(Container)`
   display: flex;
@@ -20,7 +36,7 @@ const Root = styled(Container)`
   align-items: center;
   margin-top: 60px;
 
-  @media (min-width: ${p => p.theme.screen.md}) {
+  @media (min-width: ${(p) => p.theme.screen.md}) {
     justify-content: space-between;
     margin-top: 120px;
   }
@@ -29,69 +45,74 @@ const Root = styled(Container)`
 const Welcome = styled.div`
   display: none;
   flex-direction: column;
-  color: ${p => p.theme.colors.white};
-  max-width: ${p => p.theme.screen.xs};
+  color: ${(p) => p.theme.colors.white};
+  max-width: ${(p) => p.theme.screen.xs};
 
-  @media (min-width: ${p => p.theme.screen.md}) {
+  @media (min-width: ${(p) => p.theme.screen.md}) {
     display: flex;
   }
 `;
 
 const Heading = styled(H1)`
-  margin-bottom: ${p => p.theme.spacing.sm};
+  margin-bottom: ${(p) => p.theme.spacing.sm};
 `;
 
 const Form = styled.div`
-  padding: ${p => p.theme.spacing.md};
-  border-radius: ${p => p.theme.radius.sm};
+  padding: ${(p) => p.theme.spacing.md};
+  border-radius: ${(p) => p.theme.radius.sm};
   background-color: rgba(255, 255, 255, 0.8);
+
   width: 100%;
 
-  @media (min-width: ${p => p.theme.screen.sm}) {
+  @media (min-width: ${(p) => p.theme.screen.sm}) {
     width: 450px;
   }
 `;
 
+
+
 /**
  * Sign Up page
  */
+
+
 const SignUp = ({ history, refetch }) => {
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [values, setValues] = useState({
-    fullName: '',
-    username: '',
-    email: '',
-    password: '',
+    fullName: "",
+    username: "",
+    email: "",
+    password: "",
   });
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setValues({ ...values, [name]: value });
   };
 
   const validate = () => {
     if (!fullName || !email || !username || !password) {
-      return 'All fields are required';
+      return "All fields are required";
     }
 
     if (fullName.length > 50) {
-      return 'Full name no more than 50 characters';
+      return "Full name no more than 50 characters";
     }
 
     const emailRegex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (!emailRegex.test(String(email).toLowerCase())) {
-      return 'Enter a valid email address.';
+      return "Enter a valid email address.";
     }
 
     const usernameRegex = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/;
     if (!usernameRegex.test(username)) {
-      return 'Usernames can only use letters, numbers, underscores and periods';
+      return "Usernames can only use letters, numbers, underscores and periods";
     } else if (username.length > 20) {
-      return 'Username no more than 50 characters';
+      return "Username no more than 50 characters";
     }
 
     if (password.length < 6) {
-      return 'Password min 6 characters';
+      return "Password min 6 characters";
     }
 
     return false;
@@ -107,13 +128,13 @@ const SignUp = ({ history, refetch }) => {
     }
 
     signup().then(async ({ data }) => {
-      localStorage.setItem('token', data.signup.token);
+      localStorage.setItem("token", data.signup.token);
       await refetch();
       history.push(Routes.HOME);
     });
   };
 
-  const renderErrors = apiError => {
+  const renderErrors = (apiError) => {
     let errorMessage;
 
     if (error) {
@@ -134,6 +155,8 @@ const SignUp = ({ history, refetch }) => {
   };
 
   const { fullName, email, password, username } = values;
+  const classes = useStyles();
+
 
   return (
     <Mutation
@@ -162,7 +185,7 @@ const SignUp = ({ history, refetch }) => {
                 <H1>Create Account</H1>
               </Spacing>
 
-              <form onSubmit={e => handleSubmit(e, signup)}>
+              <form onSubmit={(e) => handleSubmit(e, signup)}>
                 <InputText
                   type="text"
                   name="fullName"
@@ -203,9 +226,8 @@ const SignUp = ({ history, refetch }) => {
                 {renderErrors(apiError)}
 
                 <Spacing top="sm" />
-                <Button size="large" disabled={loading}>
-                  Sign up
-                </Button>
+                
+                <Button type="submit" className={classes.root}> Sign Up </Button>
               </form>
             </Form>
           </Root>
