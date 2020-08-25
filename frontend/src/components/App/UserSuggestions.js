@@ -67,12 +67,6 @@ const UserName = styled.div`
 const UserSuggestions = ({ pathname }) => {
   const [{ auth }] = useStore();
 
-  const hideUserSuggestions = matchPath(pathname, {
-    path: [Routes.MESSAGES, Routes.PEOPLE, Routes.EXPLORE, Routes.USER_PROFILE],
-  });
-
-  if (hideUserSuggestions) return null;
-
   return (
     <Query query={USER_SUGGESTIONS} variables={{ userId: auth.user.id }}>
       {({ data, loading }) => {

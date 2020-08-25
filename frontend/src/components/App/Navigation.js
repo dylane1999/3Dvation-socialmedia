@@ -47,6 +47,12 @@ const ListItem = styled.li`
   align-items: center;
 `;
 
+
+const Root = styled.div`
+  height: 100%
+`;
+
+
 const Name = styled.div`
   margin-left: ${p => p.theme.spacing.sm};
 `;
@@ -56,6 +62,7 @@ const Name = styled.div`
  */
 const Navigation = () => {
   return (
+    <Root>
     <List>
       <Link exact activeClassName="selected" to={Routes.HOME}>
         <ListItem>
@@ -96,6 +103,7 @@ const Navigation = () => {
         </ListItem>
       </Link>
     </List>
+    </Root>
   );
 };
 

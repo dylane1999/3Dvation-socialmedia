@@ -24,6 +24,7 @@ import * as Routes from 'routes';
 const Root = styled(Container)`
   margin-top: ${p => p.theme.spacing.lg};
   margin-bottom: ${p => p.theme.spacing.sm};
+  width: 500px;
 
   @media (min-width: ${p => p.theme.screen.lg}) {
     margin-left: ${p => p.theme.spacing.lg};

@@ -17,6 +17,7 @@
     "graphql-tag": "^2.10.1",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.19",
+    "material-auto-rotating-carousel": "^3.0.2",
     "normalize.css": "^8.0.1",
     "particles-bg": "^2.5.0",
     "prop-types": "^15.7.2",
@@ -26,6 +27,7 @@
     "react-helmet": "^5.2.1",
     "react-router-dom": "^5.0.0",
     "react-scripts": "3.0.1",
+    "react-swipeable-views": "^0.13.9",
     "styled-components": "^4.2.0",
     "subscriptions-transport-ws": "^0.9.16",
     "vanta": "^0.5.18"

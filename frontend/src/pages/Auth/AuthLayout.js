@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { Overlay } from "components/Layout";
 import   Vanta from "components/Vanta";
-import WAVES from 'vanta/dist/vanta.waves.min'
+import NET from 'vanta/dist/vanta.net.min'
 
 import { AuthHeader, SignUp, ForgotPassword, ResetPassword } from "pages/Auth";
 
@@ -20,6 +20,19 @@ import Box from "@material-ui/core/Box";
 import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import TwitterIcon from '@material-ui/icons/Twitter';
+
+
+import AboutSection from 'components/AboutSection';
+import StyledCard from 'components/StyledCard';
+
+
+import DummyImage from "../../img/Rectangle.png";
+
+import Component from '../../components/TextArea'
+
+
+import ServiceSection from '../../components/ServiceSection/ServiceSection'
+
 
 const Root = styled.div`
   width: 100%;
@@ -67,13 +80,14 @@ const Line = styled.div`
   align-self: start;
 `;
 
+
 const Grid = styled.div`
 
 
 @media (max-width: 1250px) {
   display: grid;
   width: 100%;
-  height: 45rem;
+  height: 105vh;
   grid-template-columns: auto;
   grid-template-rows: auto;
   justify-content: center;
@@ -90,22 +104,25 @@ const Grid = styled.div`
 
  display: grid;
  width: 100%;
- height: 100%;
+ height: 100vh;
  grid-template-columns: auto;
  grid-template-rows: auto;
  justify-content: center;
  grid-template-areas: 
-            ".   c   c   c   c   c"
-            "l   c   c   c   c   c"
-            "l   c   c   c   c   c"
-            "l   c   c   c   c   c"
-            ".   c   c   c   c   c"
-            ".   c   c   c   c   c"
+            "c   c   c   c   c   c"
+            "c   c   c   c   c   c"
+            "c   c   c   c   c   c"
+            "c   c   c   c   c   c"
+            "c   c   c   c   c   c"
+            "c   c   c   c   c   c"
             ".   .   .   .   .   ."
             ".   .   .   .   .   .";
 
-}
+
 `;
+
+
+
 
 
 /**
@@ -116,7 +133,7 @@ const AuthLayout = ({ refetch }) => {
   const myRef = useRef(null)
   useEffect(() => {
     if (!vantaEffect) {
-      setVantaEffect(WAVES({
+      setVantaEffect(NET({
         el: myRef.current,
         mouseControls: true,
         touchControls: true,
@@ -124,6 +141,8 @@ const AuthLayout = ({ refetch }) => {
         minHeight: 200.00,
         minWidth: 200.00,
         scale: 1.00,
+        color: 0xffffff,
+        backgroundColor: 0x0,
         scaleMobile: 1.00,
         shininess: 76.00
       }))
@@ -135,33 +154,6 @@ const AuthLayout = ({ refetch }) => {
   return (
     <Root>
       <Grid ref={myRef}>
-        <Flex>
-          <Box
-            id="SocialBar"
-            justifyContent="center"
-            display="flex"
-            flexDirection="column"
-            p={1}
-            pr={10}
-            m={1}
-          >
-            <Box p={2.5}>
-              <Line />
-            </Box>
-            <Box pb={3} >
-              <InstagramIcon  color="disa"  style={{ fontSize: 50, fill:'#FFFFFF' }}></InstagramIcon>
-            </Box>
-            <Box pb={3} >
-              <TwitterIcon color="primary"  style={{ fontSize: 50, fill:'#FFFFFF' }}> </TwitterIcon>
-            </Box>
-            <Box >
-              <LinkedInIcon color="primary"   style={{ fontSize: 50, fill:'#FFFFFF' }}> </LinkedInIcon>
-            </Box>
-            <Box p={2.5}>
-              <Line />
-            </Box>
-          </Box>
-        </Flex>
         <Container>
           <AuthHeader refetch={refetch} />
           <Pages>
@@ -186,19 +178,9 @@ const AuthLayout = ({ refetch }) => {
           </Pages>
         </Container>
       </Grid>
-      
-      <Overlay transparency="0"/>
-      
-      <h1>hello world</h1>
-      <h1>hello world</h1>
-      <h1>hello world</h1>
-      <h1>hello world</h1>
-      <h1>hello world</h1>
-      <h1>hello world</h1>
-      <h1>hello world</h1>
-      <h1>hello world</h1>
-      <h1>hello world</h1>
-      <h1>hello world</h1>
+      <ServiceSection></ServiceSection>
+      <Component></Component>
+  
 
     </Root>
   );

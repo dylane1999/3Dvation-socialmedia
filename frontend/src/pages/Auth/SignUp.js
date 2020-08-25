@@ -13,19 +13,30 @@ import { SIGN_UP } from "graphql/user";
 
 import * as Routes from "routes";
 
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+
+import Box from "@material-ui/core/Box";
+
+import StyledCard from "components/StyledCard";
+import Rectangle from "../../img/Rectangle.png";
+import MobileStyledCard from "components/MobileStyledCard";
+
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+
 
 
 const useStyles = makeStyles({
   root: {
-    background: 'linear-gradient(to right, #085d84, #007699, #008fab, #00a8b9, #30c2c3);',
+    background:
+      "linear-gradient(to right, #085d84, #007699, #008fab, #00a8b9, #30c2c3);",
     border: 0,
     borderRadius: 3,
-    boxShadow: '0 3px 5px 2px rgba(8, 93, 132, .3)',
-    color: 'white',
+    boxShadow: "0 3px 5px 2px rgba(8, 93, 132, .3)",
+    color: "white",
     height: 48,
-    padding: '0 30px',
+    width: "100%",
+    padding: "0 30px",
   },
 });
 
@@ -43,13 +54,30 @@ const Root = styled(Container)`
 `;
 
 const Welcome = styled.div`
-  display: none;
+  padding: 4rem;
+  height: 40rem;
+  border-radius: 5% 0% 0% 5%;
   flex-direction: column;
-  color: ${(p) => p.theme.colors.white};
-  max-width: ${(p) => p.theme.screen.xs};
+  background-color: rgba(55, 55, 55, 0.87);
+  width: 100%;
+  
+  @media (max-width: 1050px ) {
+    border-radius: 5% 5% 5% 5%;
 
-  @media (min-width: ${(p) => p.theme.screen.md}) {
-    display: flex;
+  }
+`;
+
+const IntroCard = styled.div`
+  @media (max-width: 1050px ) {
+    display: none;
+
+  }
+`;
+
+const MobileIntroCard = styled.div`
+  @media (min-width: 1050px ) {
+    display: none;
+
   }
 `;
 
@@ -58,22 +86,27 @@ const Heading = styled(H1)`
 `;
 
 const Form = styled.div`
-  padding: ${(p) => p.theme.spacing.md};
-  border-radius: ${(p) => p.theme.radius.sm};
-  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 0% 5% 5% 0%;
 
+  padding: 3rem;
+  height: 100%;
+  background-color: rgba(182, 182, 182, 0.7);
   width: 100%;
 
   @media (min-width: ${(p) => p.theme.screen.sm}) {
-    width: 450px;
+    width: 500px;
+  }
+  @media (max-width: 1050px ) {
+    border-radius: 5% 5% 5% 5%;
+
   }
 `;
-
 
 
 /**
  * Sign Up page
  */
+
 
 
 const SignUp = ({ history, refetch }) => {
@@ -157,6 +190,22 @@ const SignUp = ({ history, refetch }) => {
   const { fullName, email, password, username } = values;
   const classes = useStyles();
 
+  const screenLarge = useMediaQuery('(min-width: 1050px)');
+  const screenSmall = useMediaQuery('(max-width: 1050px)');
+
+  const GetHeroScreenSize = () => {
+    if (screenLarge) {
+      return "row"
+
+      
+    }
+    else if (screenSmall) {
+      return "column"
+      
+    }
+
+  };
+
 
   return (
     <Mutation
@@ -167,69 +216,111 @@ const SignUp = ({ history, refetch }) => {
         return (
           <Root maxWidth="lg">
             <Head />
+            <Box
+              justifyContent="center"
+              alignContent="center"
+              display="flex"
+              flexDirection={GetHeroScreenSize()}
+              p={1}
+              m={1}
+            >
+              <IntroCard>
+                <Box justifyItems="center">
+                  <Welcome>
+                    <StyledCard
+                      image={Rectangle}
+                      title={"Lorem Ipsum"}
+                      subtitle={"lorem ipsum iore"}
+                      mediaBg={"transparent"}
+                    ></StyledCard>
+                  </Welcome>
+                   
+                </Box>
+              </IntroCard>
 
-            <Welcome>
-              <div>
-                <Heading color="white">
-                  Connect with friends and the world around you.
-                </Heading>
-              </div>
+              
 
-              <p>See photos and updates from your friends.</p>
-              <p>Follow your interests.</p>
-              <p>Hear what people are talking about.</p>
-            </Welcome>
 
-            <Form>
-              <Spacing bottom="md">
-                <H1>Create Account</H1>
-              </Spacing>
 
-              <form onSubmit={(e) => handleSubmit(e, signup)}>
-                <InputText
-                  type="text"
-                  name="fullName"
-                  values={fullName}
-                  onChange={handleChange}
-                  placeholder="Full name"
-                  borderColor="white"
-                />
-                <Spacing top="xs" bottom="xs">
-                  <InputText
-                    type="text"
-                    name="email"
-                    values={email}
-                    onChange={handleChange}
-                    placeholder="Email"
-                    borderColor="white"
-                  />
-                </Spacing>
-                <InputText
-                  type="text"
-                  name="username"
-                  values={username}
-                  onChange={handleChange}
-                  placeholder="Username"
-                  borderColor="white"
-                />
-                <Spacing top="xs" bottom="xs">
-                  <InputText
-                    type="password"
-                    name="password"
-                    values={password}
-                    onChange={handleChange}
-                    placeholder="Password"
-                    borderColor="white"
-                  />
-                </Spacing>
+              
 
-                {renderErrors(apiError)}
+              <Box>
+                <Form>
+                  <Spacing bottom="md">
+                    <H1>Create Account</H1>
+                  </Spacing>
 
-                <Spacing top="sm" />
-                
-                <Button type="submit" className={classes.root}> Sign Up </Button>
-              </form>
-            </Form>
+                  <form onSubmit={(e) => handleSubmit(e, signup)}>
+                    <Box
+                      justifyContent="center"
+                      alignContent="center"
+                      display="flex"
+                      flexDirection="column"
+                    >
+                      <Box>
+                        <p>Full name</p>
+                        <InputText
+                          type="text"
+                          name="fullName"
+                          values={fullName}
+                          onChange={handleChange}
+                          placeholder="John Smith"
+                          borderColor="white"
+                        />
+                      </Box>
+                      <Box>
+                        <Spacing top="xs" bottom="xs">
+                          <p>Email</p>
+                          <InputText
+                            type="text"
+                            name="email"
+                            values={email}
+                            onChange={handleChange}
+                            placeholder="Example@gmail.com"
+                            borderColor="white"
+                          />
+                        </Spacing>
+                      </Box>
+                      <Box>
+                        <p>Username</p>
+
+                        <InputText
+                          type="text"
+                          name="username"
+                          values={username}
+                          onChange={handleChange}
+                          placeholder="Example_Username"
+                          borderColor="white"
+                        />
+                      </Box>
+                      <Box>
+                        <Spacing top="xs" bottom="xs">
+                          <p>Password</p>
+
+                          <InputText
+                            type="password"
+                            name="password"
+                            values={password}
+                            onChange={handleChange}
+                            placeholder="4-18 Characters"
+                            borderColor="white"
+                          />
+                        </Spacing>
+                      </Box>
+                    </Box>
+
+                    {renderErrors(apiError)}
+
+                    <Spacing top="sm" />
+
+                    <Button type="submit" className={classes.root}>
+                      {" "}
+                      Sign Up{" "}
+                    </Button>
+                  </form>
+                </Form>
+              </Box>
+            </Box>
           </Root>
         );
       }}
