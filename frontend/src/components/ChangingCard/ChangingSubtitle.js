@@ -2,10 +2,10 @@ import React, { useState,setState, state } from "react";
 
 
 
-class Component extends React.Component {
+class ChangingSubtitle extends React.Component {
   constructor(props) {
     super(props);
-    this.greetings = ["Hi", "Hello", "Heyo"]
+    this.greetings = ["this", "is", "a"]
     this.state = {
       greetingIndex: 0
     };
@@ -20,16 +20,16 @@ class Component extends React.Component {
           greetingIndex: 0
         });
       }
-    }, 2000);
+    }, 5000);
   }
   render() {
     return (
       <div>
-        <h1>Greeting: {this.greetings[this.state.greetingIndex] }</h1>
+        <p>{this.greetings[this.state.greetingIndex] }</p>
       </div>
     );
   }
 };
 
 
-export default Component;
+export default ChangingSubtitle;

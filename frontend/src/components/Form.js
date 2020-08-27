@@ -67,15 +67,14 @@ export const InputText = styled.input`
   outline: 0;
   height: 36px;
   width: 100%;
+  background: rgba(86, 86, 86, 0.34);
+  border-radius: 3.32203px;
   transition: border 0.1s;
   border-radius: ${p => p.theme.radius.sm};
   padding-left: ${p => p.theme.spacing.xs};
-  border: 1px solid
-    ${p =>
-      p.borderColor
-        ? p.theme.colors[p.borderColor]
-        : p.theme.colors.border.main};
-  color: ${p => p.theme.colors.text.secondary};
+  border: none
+  color: white;
+
 
   &:focus {
     border-color: ${p => p.theme.colors.border.main};

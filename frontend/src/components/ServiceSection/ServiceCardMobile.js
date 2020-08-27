@@ -7,7 +7,7 @@ const { withStyles } = require('@material-ui/core/styles');
 const styles = {
   root: {
     height: 500,
-    width: 350, 
+    width: 400, 
     backgroundColor:'transparent',
 
   },

@@ -20,18 +20,17 @@ import Box from "@material-ui/core/Box";
 
 import StyledCard from "components/StyledCard";
 import Rectangle from "../../img/Rectangle.png";
+import PrinterIcon from "../../img/PrinterIcon.svg";
+
 import MobileStyledCard from "components/MobileStyledCard";
 
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-
-
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles({
   root: {
-    background:
-      "linear-gradient(to right, #085d84, #007699, #008fab, #00a8b9, #30c2c3);",
+    background: "#30ADEB",
     border: 0,
-    borderRadius: 3,
+    borderRadius: "5px",
     boxShadow: "0 3px 5px 2px rgba(8, 93, 132, .3)",
     color: "white",
     height: 48,
@@ -46,6 +45,7 @@ const Root = styled(Container)`
   justify-content: center;
   align-items: center;
   margin-top: 60px;
+  overflow: hidden;
 
   @media (min-width: ${(p) => p.theme.screen.md}) {
     justify-content: space-between;
@@ -54,30 +54,24 @@ const Root = styled(Container)`
 `;
 
 const Welcome = styled.div`
-  padding: 4rem;
+  padding: 5.5rem;
   height: 40rem;
-  border-radius: 5% 0% 0% 5%;
+  border-radius: 6.64407px 0px 0px 6.64407px;
   flex-direction: column;
-  background-color: rgba(55, 55, 55, 0.87);
+  background-color: rgba(55, 55, 55, 0.6);
   width: 100%;
-  
-  @media (max-width: 1050px ) {
-    border-radius: 5% 5% 5% 5%;
 
+  @media (max-width: 1050px) {
+    height: 100%;
+    border-radius: 6.64407px 6.64407px 0% 0%;
   }
 `;
 
-const IntroCard = styled.div`
-  @media (max-width: 1050px ) {
-    display: none;
-
-  }
-`;
+const IntroCard = styled.div``;
 
 const MobileIntroCard = styled.div`
-  @media (min-width: 1050px ) {
+  @media (min-width: 1050px) {
     display: none;
-
   }
 `;
 
@@ -85,29 +79,34 @@ const Heading = styled(H1)`
   margin-bottom: ${(p) => p.theme.spacing.sm};
 `;
 
+const CalltoAction = styled(H1)`
+  font-weight: 500;
+  line-height: 28px;
+  font-family: aktiv-grotesk, sans-serif;
+  /* identical to box height */
+
+  color: #ffffff;
+`;
+
 const Form = styled.div`
-  border-radius: 0% 5% 5% 0%;
+  border-radius: 0% 6.64407px 6.64407px 0%;
 
   padding: 3rem;
   height: 100%;
-  background-color: rgba(182, 182, 182, 0.7);
+  background: rgba(0, 0, 0, 0.29);
   width: 100%;
 
   @media (min-width: ${(p) => p.theme.screen.sm}) {
     width: 500px;
   }
-  @media (max-width: 1050px ) {
-    border-radius: 5% 5% 5% 5%;
-
+  @media (max-width: 1050px) {
+    border-radius: 0% 0% 6.64407px 6.64407px;
   }
 `;
-
 
 /**
  * Sign Up page
  */
-
-
 
 const SignUp = ({ history, refetch }) => {
   const [error, setError] = useState("");
@@ -190,22 +189,38 @@ const SignUp = ({ history, refetch }) => {
   const { fullName, email, password, username } = values;
   const classes = useStyles();
 
-  const screenLarge = useMediaQuery('(min-width: 1050px)');
-  const screenSmall = useMediaQuery('(max-width: 1050px)');
+  const screenLarge = useMediaQuery("(min-width: 1050px)");
+  const screenSmall = useMediaQuery("(max-width: 1050px)");
 
   const GetHeroScreenSize = () => {
     if (screenLarge) {
-      return "row"
-
-      
+      return "row";
+    } else if (screenSmall) {
+      return "column";
     }
-    else if (screenSmall) {
-      return "column"
-      
-    }
-
   };
 
+  const GetCardType = () => {
+    if (screenLarge) {
+      return (
+        <StyledCard
+          image={PrinterIcon}
+          //title={"Lorem Ipsum"}
+          //subtitle={"lorem ipsum iore"}
+          mediaBg={"transparent"}
+        ></StyledCard>
+      );
+    } else if (screenSmall) {
+      return (
+        <MobileStyledCard
+          image={Rectangle}
+          //title={"Lorem Ipsum"}
+          //subtitle={"lorem ipsum iore"}
+          mediaBg={"transparent"}
+        ></MobileStyledCard>
+      );
+    }
+  };
 
   return (
     <Mutation
@@ -226,28 +241,14 @@ const SignUp = ({ history, refetch }) => {
             >
               <IntroCard>
                 <Box justifyItems="center">
-                  <Welcome>
-                    <StyledCard
-                      image={Rectangle}
-                      title={"Lorem Ipsum"}
-                      subtitle={"lorem ipsum iore"}
-                      mediaBg={"transparent"}
-                    ></StyledCard>
-                  </Welcome>
-                   
+                  <Welcome>{GetCardType()}</Welcome>
                 </Box>
               </IntroCard>
-
-              
-
-
-
-              
 
               <Box>
                 <Form>
                   <Spacing bottom="md">
-                    <H1>Create Account</H1>
+                    <CalltoAction>Create Account</CalltoAction>
                   </Spacing>
 
                   <form onSubmit={(e) => handleSubmit(e, signup)}>

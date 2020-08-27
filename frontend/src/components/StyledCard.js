@@ -1,5 +1,8 @@
 import { Slide } from 'material-auto-rotating-carousel';
 import React from "react";
+import ChangingTitle from "./ChangingCard/ChangingTitle";
+import ChangingSubtitle from "./ChangingCard/ChangingSubtitle";
+
 
 const { red } = require('@material-ui/core/colors');
 const { withStyles } = require('@material-ui/core/styles');
@@ -20,9 +23,9 @@ function StyledCard(props) {
   return (
 <StyledSlide
   media={<img src= {props.image} />}
-  title={props.title}
+  title={<ChangingTitle/>}
   mediaBackgroundStyle={{ backgroundColor: props.mediaBg }}
-  subtitle= {props.subtitle}
+  subtitle= {<ChangingSubtitle/>}
 />
   );
 }

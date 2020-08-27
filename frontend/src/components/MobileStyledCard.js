@@ -6,27 +6,22 @@ const { withStyles } = require('@material-ui/core/styles');
 
 const styles = {
   root: {
-    height: 100,
-    width: 400, 
-    backgroundColor:'transparent',
-    alignSelf: "start"
-
+    height: 400,
+    backgroundColor:'transparent'
   },
   media: {
   }
 }
-const MobileStyledSlide = withStyles(styles)(Slide);
+const StyledSlide = withStyles(styles)(Slide);
 
 function StyledCard(props) {
   const { classes } = props;
   return (
-<MobileStyledSlide
+<StyledSlide
   media={<img src= {props.image} />}
   title={props.title}
   mediaBackgroundStyle={{ backgroundColor: props.mediaBg }}
   subtitle= {props.subtitle}
-  mobile 
-  landscape
 />
   );
 }
